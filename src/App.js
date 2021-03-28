@@ -37,7 +37,7 @@ function App() {
 
         id = Math.floor(Math.random() * Object.keys(json).length);
 
-        if (full_cast.includes(json[id]["speaker"].toLowerCase())) {
+        if (full_cast.includes(json[id]["speaker"].toLowerCase()) && json[id]["line_text"].length > 30) {
           setQuote(json[id]["line_text"]);
           setAnswer(json[id]["speaker"].toLowerCase());
           casting_done = true;
@@ -87,6 +87,8 @@ function App() {
 
   // Submit Answer, check for a pass or fail
   const handleSubmit = () => {
+
+    // Increment the score if the user was correct
     if (userAnswer.toLowerCase() === answer.toLowerCase()) {
       setUserResult(`Correct, it was ${answer}!`);
       setScore(score+1);
@@ -94,6 +96,7 @@ function App() {
       setUserResult(`Sorry, it was ${answer}`);
     }
 
+    // Show the results and hide the submit button 
     setShowResult(true);
     setShowSubmit(false);
   }
