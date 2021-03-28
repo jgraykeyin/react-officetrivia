@@ -18,6 +18,19 @@
   background-color: lightblue;
 }
 
+.HamburgerBtn {
+  padding: 10px;
+  position: fixed;
+  cursor: pointer;
+}
+
+.BurgerLine {
+  width: 25px;
+  height: 2px;
+  background-color: black;
+  margin: 6px 0;
+}
+
 .Whosaid {
   text-align: center;
   color: #60A5BB;
@@ -51,7 +64,6 @@
   animation: fadeIn ease 2s;
   -webkit-animation: fadeIn ease 2s;
   animation-fill-mode: forwards;
-  
 }
 
 @keyframes fadeIn {
