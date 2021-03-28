@@ -6,6 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #D0CCCC;
+  background-image: url("background-office.png");
+  background-size: 20%;
 }
 
 code {
