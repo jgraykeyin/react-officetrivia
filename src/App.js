@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState, useEffect, useRef } from 'react'
 import './App.css';
 import Titlebar from './Components/Titlebar'
 import QuoteOutput from './Components/QuoteOutput'
@@ -16,6 +16,7 @@ function App() {
   const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
   const [round, setRound] = useState(1);
+  const myRef = useRef(null)
 
   // Initliaze the question. Fetch a random quote and setup the answer options.
   const QuestionInit = () => {
@@ -80,7 +81,10 @@ function App() {
   const handleClick = (e) => {
     if (showResult === false) {
       setShowSubmit(true);
-      setUserAnswer(e["target"]["alt"])
+      setUserAnswer(e["target"]["alt"]);
+      myRef.current.scrollIntoView({
+        behavior: "smooth"
+      });
     }
   }
 
@@ -96,6 +100,10 @@ function App() {
       setUserResult(`Sorry, it was ${answer}`);
     }
 
+    myRef.current.scrollIntoView({
+      behavior: "smooth"
+    });
+
     // Show the results and hide the submit button 
     setShowResult(true);
     setShowSubmit(false);
@@ -107,6 +115,10 @@ function App() {
     setShowSubmit(false);
     setShowResult(false);
     setRound(round+1);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   }
 
 
@@ -128,8 +140,10 @@ function App() {
           { showSubmit ? <button className="SubmitBtn" onClick={handleSubmit}>Submit Answer</button> : null }
           { showResult ? <p className="UserResults">{userResult}</p> : null }
           { showResult ? <button className="NextBtn" onClick={handleNext}>Next Quote</button> : null }
+
         </div>
         <div className="Score">Score: {score} / {round}</div>
+        <div ref={myRef}></div>
       </div>
 
     </div>
