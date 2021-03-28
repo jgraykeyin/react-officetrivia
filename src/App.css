@@ -20,7 +20,7 @@
 
 .HamburgerBtn {
   padding: 10px;
-  position: fixed;
+  position: absolute;
   cursor: pointer;
 }
 
