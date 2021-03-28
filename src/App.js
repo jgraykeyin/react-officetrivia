@@ -69,7 +69,8 @@ function App() {
   }
 
 
-  // Initalize a question as soon as the page loads
+  // Initalize a question as soon as the page loads.
+  // This will also trigger anytime the round variable increments.
   useEffect(() => {
     QuestionInit();
   }, [round]);
