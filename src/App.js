@@ -15,12 +15,10 @@ function App() {
   const [userResult, setUserResult] = useState('Correct!');
   const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
-  const [round, setRound] = useState(0);
+  const [round, setRound] = useState(1);
 
   // Initliaze the question. Fetch a random quote and setup the answer options.
   const QuestionInit = () => {
-
-    setRound(round+1);
 
     // Fetch the JSON data
     fetch('data/theoffice_lines.json')
@@ -28,7 +26,7 @@ function App() {
     .then((json) => {
 
       // Limit the game to specific characters from the show
-      const full_cast = ["Michael", "Jim", "Pam", "Dwight", "Angela", "Kelly", "Ryan", "Kevin", "Andy", "Meredith","Oscar","Phyllis", "Creed", "Stanley", "Toby", "Erin", "Darryl", "Jan", "Gabe"];
+      const full_cast = ["michael", "jim", "pam", "dwight", "angela", "kelly", "ryan", "kevin", "andy", "meredith","oscar","phyllis", "creed", "stanley", "toby", "erin", "darryl", "jan", "gabe"];
       
       // Make sure we select a quote by a character in our cast list
       let casting_done = false;
@@ -39,12 +37,10 @@ function App() {
 
         id = Math.floor(Math.random() * Object.keys(json).length);
 
-        if (full_cast.includes(json[id]["speaker"])) {
+        if (full_cast.includes(json[id]["speaker"].toLowerCase())) {
           setQuote(json[id]["line_text"]);
-          setAnswer(json[id]["speaker"]);
+          setAnswer(json[id]["speaker"].toLowerCase());
           casting_done = true;
-        } else {
-          console.log("Trying another line");
         }
       }
 
@@ -55,19 +51,15 @@ function App() {
         let random_character = full_cast[Math.floor(Math.random() * full_cast.length)];
 
         // Another clunky hack to make sure we don't get duplicates.
-        // TODO: This probably isn't working
         if (available_cast.includes(random_character)) {
-          console.log("Skipping...");
           continue;
         } else {
-          available_cast.push(random_character.toString().toLowerCase());
+          available_cast.push(random_character);
         }
       }
   
       // Make sure the available cast includes the answer for the current question
-      if (available_cast.includes(answer)) {
-        console.log("Already included")
-      } else {
+      if (!available_cast.includes(json[id]["speaker"].toLowerCase())) {
         let random_index = Math.floor(Math.random() * 5);
         available_cast[random_index] = json[id]["speaker"].toLowerCase();
       }
@@ -80,7 +72,7 @@ function App() {
   // Initalize a question as soon as the page loads
   useEffect(() => {
     QuestionInit();
-  }, []);
+  }, [round]);
 
 
   // When a user clicks an answer option, show the Submit button and save selected option
@@ -88,8 +80,6 @@ function App() {
     if (showResult === false) {
       setShowSubmit(true);
       setUserAnswer(e["target"]["alt"])
-    } else {
-      console.log("Nothing to do")
     }
   }
 
@@ -108,10 +98,11 @@ function App() {
   }
 
 
+  // Start a new round. setRound triggers the useEffect to init a new quote.
   const handleNext = () => {
     setShowSubmit(false);
     setShowResult(false);
-    QuestionInit();
+    setRound(round+1);
   }
 
 

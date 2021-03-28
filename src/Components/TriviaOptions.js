@@ -1,6 +1,4 @@
-import { React, useState } from 'react';
-import handleClick from '../App';
-
+import { React } from 'react';
 
 function TriviaOptions(props) {
 
