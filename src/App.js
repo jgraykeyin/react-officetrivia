@@ -126,7 +126,6 @@ function App() {
           { showResult ? <button className="NextBtn" onClick={handleNext}>Next Quote</button> : null }
         </div>
         <div className="Score">Score: {score} / {round}</div>
-        <div><p>Debug Answer: {answer}</p></div>
       </div>
 
     </div>

@@ -4,8 +4,8 @@
 
 .Main-frame {
   background-color: #fff;
-  max-width: 968px;
   margin: auto;
+  max-width: 90vw;
   margin-top: 1rem;
   border: 1px solid black;
   box-shadow: 10px 10px rgba(0, 0, 0,0.3);
@@ -34,10 +34,12 @@
   flex-direction: row;
   align-items:center;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .Quote-output {
   font-size: 28px;
+  padding: 8px;
 }
 
 .AnswerBtnContainer {
